@@ -57,3 +57,18 @@ desktop.ini
 
 # ただし小さいサンプルデータや設定CSVは残す
 !ai-os/competitions/*/configs/*.csv
+
+# === 案件・実験の個人データ ===
+ai-os/work/clients/*/
+ai-os/work/zetax/COMPANY.md
+ai-os/work/zetax/STRATEGY.md
+ai-os/work/zetax/SESSION_NOTES.md
+ai-os/work/zetax/daily_reports/
+ai-os/work/zetax/operations/
+ai-os/competitions/*/experiments/
+ai-os/competitions/*/.steering/
+ai-os/competitions/*/daily_reports/
+ai-os/competitions/*/SESSION_NOTES.md
+ai-os/SESSION_NOTES.md
+ai-os/DECISION_LOG.md
+ai-os/daily_reports/
