@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "SessionEnd": [],
+    "PreCompact": []
+  },
+  "notes": "Hooks are intentionally disabled until hook scripts are implemented and tested."
+}

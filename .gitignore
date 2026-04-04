@@ -1,0 +1,59 @@
+# === データ・機密 ===
+# クライアント・コンペの生データ
+ai-os/work/clients/*/data/
+ai-os/competitions/*/data/
+ai-os/competitions/*/submissions/
+
+# 環境変数・APIキー
+.env
+.env.*
+*.key
+secrets/
+
+# === Obsidian アプリ本体（vaultの中身は残す） ===
+ai-os/obsidian-vault/*.exe
+ai-os/obsidian-vault/*.dll
+ai-os/obsidian-vault/*.pak
+ai-os/obsidian-vault/*.bin
+ai-os/obsidian-vault/*.dat
+ai-os/obsidian-vault/*.html
+ai-os/obsidian-vault/locales/
+ai-os/obsidian-vault/resources/
+ai-os/obsidian-vault/Obsidian.com
+
+# === knowledge-pipeline の生成物 ===
+ai-os/knowledge-pipeline/data/
+ai-os/knowledge-pipeline/logs/
+ai-os/knowledge-pipeline/__pycache__/
+ai-os/knowledge-pipeline/src/**/__pycache__/
+
+# === Python ===
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# === Jupyter ===
+.ipynb_checkpoints/
+
+# === IDE / OS ===
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+
+# === 大きな生成物 ===
+*.csv
+*.parquet
+*.pkl
+*.h5
+*.pt
+*.pth
+*.onnx
+*.zip
+*.tar.gz
+
+# ただし小さいサンプルデータや設定CSVは残す
+!ai-os/competitions/*/configs/*.csv

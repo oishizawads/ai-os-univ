@@ -1,0 +1,29 @@
+{
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"C:/workspace/ai-os/hooks/lib/rotate_daily_report.py\""
+          },
+          {
+            "type": "command",
+            "command": "python \"C:/workspace/ai-os/hooks/lib/session_notes_sync.py\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"C:/workspace/ai-os/hooks/suggest-claude-md-hook.sh\""
+          }
+        ]
+      }
+    ]
+  }
+}
