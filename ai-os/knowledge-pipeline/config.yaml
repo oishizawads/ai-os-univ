@@ -211,7 +211,7 @@ tags:
     - ポッドキャスト・動画学習
 
 vault:
-  path: "C:/workspace/ai-os/obsidian-vault"
+  path: "/path/to/your/obsidian-vault"
   inbox_dir: "inbox"
   papers_dir: "papers"
   blogs_dir: "blogs"

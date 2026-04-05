@@ -17,7 +17,7 @@
 1. 対象プロジェクトの `CLAUDE.md` を読む
 2. `SESSION_NOTES.md` を読む
 3. 直近の `.steering/` を確認する
-4. `obsidian-vault/raw/_INDEX.md` を読んで知識ベースの概要を把握する
+4. `/path/to/your/obsidian-vault/raw/_INDEX.md` を読んで知識ベースの概要を把握する
 5. 関連する `knowledge/` ファイルを確認する（principles/ frameworks/ playbooks/ failure_patterns/）
 6. 目的、制約、成功条件を要約する
 7. 実装・分析・実験を行う
@@ -26,7 +26,7 @@
 10. 失敗・重要判断は `DECISION_LOG.md` または `knowledge/failure_patterns/` に記録する
 
 ## Knowledge Resources
-- `obsidian-vault/raw/_INDEX.md` — 知識ベースの目次（何が入っているか）。セッション開始時に読む
+- `/path/to/your/obsidian-vault/raw/_INDEX.md` — 知識ベースの目次（何が入っているか）。セッション開始時に読む
 - `knowledge/principles/` — 長期不変の思考原則（issue_driven, hypothesis等）
 - `knowledge/frameworks/` — 思考の足場（reasoning_scaffold, rag_design等）
 - `knowledge/playbooks/` — 業務別標準手順
