@@ -92,12 +92,7 @@ ai-os/weekly_reports/
 ai-os/decisions/
 
 # === 大学課題（個人情報含む） ===
-ai-os/study/university/PBL演習1/
-ai-os/study/university/月曜3限データベース/
-ai-os/study/university/月曜5限人工知能概論/
-ai-os/study/university/木曜3限データ構造とアルゴリズム/
-ai-os/study/university/水曜1限統計分析基礎2/
-ai-os/study/university/火曜2限情報処理2/
+ai-os/study/
 
 # === Claude ローカル設定 ===
 .claude/settings.local.json
