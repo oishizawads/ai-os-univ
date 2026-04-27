@@ -29,7 +29,7 @@ Codexへの投入（スキル経由）:
 
 Codexへの投入（直接実行）:
 ```bash
-node "C:/Users/kokao/.claude/plugins/marketplaces/openai-codex/plugins/codex/scripts/codex-companion.mjs" task "..." --write
+node "$HOME/.claude/plugins/marketplaces/openai-codex/plugins/codex/scripts/codex-companion.mjs" task "..." --write
 ```
 
 ## Session開始

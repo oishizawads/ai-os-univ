@@ -211,7 +211,7 @@ tags:
     - ポッドキャスト・動画学習
 
 vault:
-  path: "C:/Users/kokao/iCloudDrive/iCloud~md~obsidian/obsidian-vault"
+  path: "YOUR_OBSIDIAN_VAULT_PATH"  # e.g. C:/Users/<name>/iCloudDrive/iCloud~md~obsidian/obsidian-vault
   inbox_dir: "inbox"
   papers_dir: "papers"
   blogs_dir: "blogs"

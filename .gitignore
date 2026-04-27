@@ -97,6 +97,11 @@ ai-os/study/
 # === Claude ローカル設定 ===
 .claude/settings.local.json
 
+# === 個人レポート・ログ（内容が入る前に保護） ===
+ai-os/meeting_notes/
+ai-os/monthly_reports/
+ai-os/eda_analysis.R
+
 # === node ===
 node_modules/
 package-lock.json
