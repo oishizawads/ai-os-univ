@@ -79,8 +79,8 @@ def discover_projects() -> list[Path]:
                 roots.append(p)
                 roots.extend(c for c in p.iterdir() if c.is_dir())
 
-    # ai-os
-    roots.append(WORKSPACE / "ai-os")
+    # ai-os root itself
+    roots.append(WORKSPACE)
 
     return roots
 

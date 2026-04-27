@@ -14,26 +14,35 @@
 - `src/` は本命コード、`ai-src/` はAIの試作・叩き台とする
 
 ## Standard Workflow
-1. 対象プロジェクトの `CLAUDE.md` を読む
-2. `SESSION_NOTES.md` を読む
-3. 直近の `.steering/` を確認する
-4. `/path/to/your/obsidian-vault/raw/_INDEX.md` を読んで知識ベースの概要を把握する
-5. 関連する `knowledge/` ファイルを確認する（principles/ frameworks/ playbooks/ failure_patterns/）
-6. 目的、制約、成功条件を要約する
-7. 実装・分析・実験を行う
-8. 結果を記録する
-9. `SESSION_NOTES.md` と関連ドキュメントを更新する
-10. 失敗・重要判断は `DECISION_LOG.md` または `knowledge/failure_patterns/` に記録する
+1. `python C:/workspace/ai-os/hooks/lib/session_start.py [project_dir]` でコンテキストロード
+2. 対象プロジェクトの `CLAUDE.md` を読む
+3. 知識ベース `/path/to/your/obsidian-vault/raw/_INDEX.md` の概要を把握する
+4. 関連する `knowledge/` を確認する（principles/ frameworks/ playbooks/ failure_patterns/）
+5. 目的、制約、成功条件を要約する
+6. 実装・分析・実験を行う（並列エージェント戦略: `knowledge/playbooks/parallel_agent_workflow.md` 参照）
+7. 結果を記録する（実験は result.md → auto-ledger が experiment_ledger.csv に自動追記）
+8. `SESSION_NOTES.md` を更新する
+9. 重要な意思決定は `ai-os/decisions/YYYY-MM.md` に記録する（プロジェクト横断）
+10. プロジェクト固有の失敗は `knowledge/failure_patterns/` に記録する
 
 ## Knowledge Resources
-- `/path/to/your/obsidian-vault/raw/_INDEX.md` — 知識ベースの目次（何が入っているか）。セッション開始時に読む
-- `knowledge/principles/` — 長期不変の思考原則（issue_driven, hypothesis等）
-- `knowledge/frameworks/` — 思考の足場（reasoning_scaffold, rag_design等）
-- `knowledge/playbooks/` — 業務別標準手順
+- `/path/to/your/obsidian-vault/raw/_INDEX.md` — 知識ベースの目次
+- `knowledge/principles/` — 長期不変の思考原則
+- `knowledge/frameworks/` — 思考の足場
+- `knowledge/playbooks/` — 業務別標準手順（parallel_agent_workflow.md 含む）
 - `knowledge/failure_patterns/` — 実際に起きた失敗パターン
+- `decisions/YYYY-MM.md` — 横断的意思決定ログ（月別）
 - `EVAL_POLICY.md` — 評価基準
-- `DECISION_LOG.md` — 重要な意思決定の記録
 - `WORKFLOW_SPEC.md` — AI運用設計の全体像
+
+## Hooks（自動実行）
+| タイミング | 処理 |
+|-----------|------|
+| PreToolUse (Bash) | `guard_dangerous_commands.py` — 危険コマンドをブロック |
+| PostToolUse (Edit/Write) | `suggest_claude_md.py` — CLAUDE.md 更新提案 |
+| PostToolUse (Edit/Write) | `auto_ledger.py` — result.md 書き込み時に experiment_ledger.csv 自動追記 |
+| SessionEnd | `rotate_daily_report.py` — 日次/週次/月次レポート生成 |
+| SessionEnd | `session_notes_sync.py` — 編集ファイルをSESSION_NOTESに記録 |
 
 ## Global Rules
 - 実装や分析の前に、前提・制約・評価基準を明文化する

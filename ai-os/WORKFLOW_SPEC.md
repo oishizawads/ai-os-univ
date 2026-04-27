@@ -11,7 +11,7 @@ C:/workspace/
 └── ai-os/                   ← 全作業の起点
     ├── competitions/         ← MLコンペ
     ├── work/                 ← 実務案件
-    │   ├── zetax/
+    │   ├── company/
     │   ├── clients/
     │   └── internal/
     ├── knowledge-pipeline/   ← Web記事の収集・検索・wiki化

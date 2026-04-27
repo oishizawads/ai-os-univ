@@ -45,6 +45,15 @@ Thumbs.db
 desktop.ini
 .vscode/
 
+# === バイナリ・Office ファイル（個人・業務情報含む可能性） ===
+*.xlsx
+*.xls
+*.pptx
+*.ppt
+*.docx
+*.doc
+*.pdf
+
 # === 大きな生成物 ===
 *.csv
 *.parquet
@@ -61,15 +70,38 @@ desktop.ini
 
 # === 案件・実験の個人データ ===
 ai-os/work/clients/*/
-ai-os/work/zetax/COMPANY.md
-ai-os/work/zetax/STRATEGY.md
-ai-os/work/zetax/SESSION_NOTES.md
-ai-os/work/zetax/daily_reports/
-ai-os/work/zetax/operations/
+ai-os/work/nagoya-seika/
+ai-os/work/company/COMPANY.md
+ai-os/work/company/STRATEGY.md
+ai-os/work/company/SESSION_NOTES.md
+ai-os/work/company/daily_reports/
+ai-os/work/company/operations/
+ai-os/work/company/docs/
+ai-os/work/company/internal_docs/MOVIE/
+ai-os/work/company/weekly_reports/
+ai-os/work/company/meeting_notes/*.md
 ai-os/competitions/*/experiments/
 ai-os/competitions/*/.steering/
 ai-os/competitions/*/daily_reports/
+ai-os/competitions/*/weekly_reports/
 ai-os/competitions/*/SESSION_NOTES.md
 ai-os/SESSION_NOTES.md
 ai-os/DECISION_LOG.md
 ai-os/daily_reports/
+ai-os/weekly_reports/
+ai-os/decisions/
+
+# === 大学課題（個人情報含む） ===
+ai-os/study/university/PBL演習1/
+ai-os/study/university/月曜3限データベース/
+ai-os/study/university/月曜5限人工知能概論/
+ai-os/study/university/木曜3限データ構造とアルゴリズム/
+ai-os/study/university/水曜1限統計分析基礎2/
+ai-os/study/university/火曜2限情報処理2/
+
+# === Claude ローカル設定 ===
+.claude/settings.local.json
+
+# === node ===
+node_modules/
+package-lock.json

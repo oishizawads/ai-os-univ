@@ -14,7 +14,7 @@
 現在のプロジェクト種別に応じて出力先を決める。
 - コンペ: `meeting_notes/YYYY-MM-DD_<topic>.md`
 - 実務案件: `meeting_notes/YYYY-MM-DD_<topic>.md`
-- ZetaX社内: `work/zetax/meeting_notes/YYYY-MM-DD_<topic>.md`
+- 社内: `work/company/meeting_notes/YYYY-MM-DD_<topic>.md`
 
 ### Step 2: 議事録を構造化
 ユーザーから渡された生メモを以下フォーマットに整理する。

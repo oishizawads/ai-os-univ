@@ -1,10 +1,5 @@
-#!/usr/bin/env sh
-# PostToolUse hook (Edit/Write): print actionable CLAUDE.md update suggestions.
-# NOTE: Logic moved to hooks/lib/suggest_claude_md.py (called via settings.json)
+"""PostToolUse hook (Edit/Write): print actionable CLAUDE.md update suggestions."""
 
-INPUT=$(cat)
-
-echo "$INPUT" | python - <<'PYEOF'
 import json
 import sys
 from pathlib import Path
@@ -103,5 +98,5 @@ def main():
         print(f'[suggest-claude-md] {line}')
 
 
-main()
-PYEOF
+if __name__ == '__main__':
+    main()

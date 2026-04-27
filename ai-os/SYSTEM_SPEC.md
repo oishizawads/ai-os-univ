@@ -32,7 +32,7 @@ workspace/
   ai-os/
     knowledge-pipeline/   ← 知識収集・検索パイプライン
     knowledge/            ← 構造化知識（フレームワーク等）
-    work/zetax/           ← 業務ナレッジ（テンプレート）
+    work/company/         ← 業務ナレッジ（テンプレート）
     CLAUDE.md             ← Claude Code への指示ファイル
     SYSTEM_SPEC.md        ← このファイル
 ```

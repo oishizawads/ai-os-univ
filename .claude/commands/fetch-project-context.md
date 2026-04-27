@@ -40,11 +40,11 @@
 - `docs/assumptions.md`
 - 直近の `meeting_notes/`
 
-### ZetaX Company Context
+### Company Context
 追加で以下を見る。
-- `work/zetax/COMPANY.md`
-- `work/zetax/STRATEGY.md`
-- `work/zetax/SESSION_NOTES.md`
+- `work/company/COMPANY.md`
+- `work/company/STRATEGY.md`
+- `work/company/SESSION_NOTES.md`
 
 ## Output Format
 

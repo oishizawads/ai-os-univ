@@ -14,13 +14,28 @@
         ]
       }
     ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"C:/workspace/ai-os/hooks/lib/guard_dangerous_commands.py\""
+          }
+        ]
+      }
+    ],
     "PostToolUse": [
       {
         "matcher": "Edit|Write",
         "hooks": [
           {
             "type": "command",
-            "command": "sh \"C:/workspace/ai-os/hooks/suggest-claude-md-hook.sh\""
+            "command": "python \"C:/workspace/ai-os/hooks/lib/suggest_claude_md.py\""
+          },
+          {
+            "type": "command",
+            "command": "python \"C:/workspace/ai-os/hooks/lib/auto_ledger.py\""
           }
         ]
       }

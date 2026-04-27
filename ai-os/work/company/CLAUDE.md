@@ -1,7 +1,7 @@
-# ZetaX - CLAUDE.md
+# Company - CLAUDE.md
 
 ## Goal
-このディレクトリは ZetaX の会社側ナレッジOSである。
+このディレクトリは自社の会社側ナレッジOSである。
 目的は、案件、提案、PoC、再利用資産、社内ルールを一貫した運用で管理すること。
 
 ## Read First

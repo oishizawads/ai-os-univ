@@ -12,9 +12,15 @@ description: 例外や不具合の原因を切り分ける
 1. Symptom を要約する
 2. 再現条件を確認する
 3. 入力・設定・分割・保存物・依存関係を疑う
-4. 仮説を最低3つ出す
-5. 最短の triage order を出す
-6. 再発防止策を提案する
+4. **error-analyzer** を起動しながら、Claude 自身も並列で仮説を生成する:
+   ```
+   以下のエラー / 異常挙動について原因仮説を最低3つ挙げ、
+   最短の triage order を出してください。
+   [エラーメッセージ・スタックトレース・再現条件を貼る]
+   ```
+5. error-analyzer の出力と Claude の仮説を統合し、重複除去・優先順位付けを行う
+6. 最短の triage order を出す
+7. 再発防止策を提案する
 
 ## Output Format
 - Symptom summary
