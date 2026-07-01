@@ -1,0 +1,84 @@
+name: Claude Design
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  design:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'oishizawads' &&
+      github.event.label.name == 'status:design'
+    timeout-minutes: 15
+    concurrency:
+      group: claude-design-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Load design prompt
+        id: prompt
+        run: |
+          PROMPT=$(cat .github/harness-prompts/02-design.md 2>/dev/null || echo "")
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$PROMPT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Run Claude Design
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            あなたは PM (Claude) です。
+            Issue #${{ github.event.issue.number }} の詳細設計と実装タスク分割を行ってください。
+
+            ## Issue 情報
+            タイトル: ${{ github.event.issue.title }}
+            本文:
+            ${{ github.event.issue.body }}
+
+            ## タスク
+            リポジトリのコードを確認した上で設計コメントを作成し、
+            Bashツールで以下のコマンドを実行してIssueに投稿してください:
+
+            gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "（生成したコメント本文）"
+
+            ## コメントの形式
+
+            ## 設計: ${{ github.event.issue.title }}
+
+            ### 実装方針
+            （アプローチの選択肢と採用理由）
+
+            ### 影響範囲
+            （変更対象ファイル・モジュール・API）
+
+            ### タスク規模判定
+            | 規模 | 判定 | 推奨エージェント |
+            |------|------|----------------|
+            | 軽量 (< 1h) | ○/× | Claude 直接 / OpenCode |
+            | 中規模 (1-4h) | ○/× | Claude Code Action |
+            | 重量 (4h+) | ○/× | Codex |
+
+            ### PR分割計画
+            | # | PR内容 | 依存 | 見積 | 推奨エージェント |
+            |---|-------|------|------|----------------|
+
+            ### 子Issue一覧
+            （以下を各子Issueとして作成してください）
+
+            #### 子Issue 1
+            **タイトル**:
+            **実装仕様**:
+            **影響範囲**:
+            **テスト観点**:
+            **受け入れ条件**:
+
+            ---
+            *このコメントは `status:design` ラベル付与により自動生成されました。*
+            *設計を確認したら「設計確定」とコメントして `status:ready` に進んでください。*

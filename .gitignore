@@ -1,107 +1,122 @@
-# === データ・機密 ===
-# クライアント・コンペの生データ
-ai-os/work/clients/*/data/
-ai-os/competitions/*/data/
-ai-os/competitions/*/submissions/
-
-# 環境変数・APIキー
+# === Security & Auth ===
 .env
 .env.*
 !.env.example
 *.key
 secrets/
-
-# === Obsidian アプリ本体（vaultの中身は残す） ===
-ai-os/obsidian-vault/*.exe
-ai-os/obsidian-vault/*.dll
-ai-os/obsidian-vault/*.pak
-ai-os/obsidian-vault/*.bin
-ai-os/obsidian-vault/*.dat
-ai-os/obsidian-vault/*.html
-ai-os/obsidian-vault/locales/
-ai-os/obsidian-vault/resources/
-ai-os/obsidian-vault/Obsidian.com
-
-# === knowledge-pipeline の生成物 ===
-ai-os/knowledge-pipeline/data/
-ai-os/knowledge-pipeline/logs/
-ai-os/knowledge-pipeline/__pycache__/
-ai-os/knowledge-pipeline/src/**/__pycache__/
-
-# === Python ===
-__pycache__/
-*.pyc
-*.pyo
-.venv/
-venv/
-*.egg-info/
-
-# === Jupyter ===
-.ipynb_checkpoints/
-
-# === IDE / OS ===
-.DS_Store
-Thumbs.db
-desktop.ini
-.vscode/
-
-# === バイナリ・Office ファイル（個人・業務情報含む可能性） ===
-*.xlsx
-*.xls
-*.pptx
-*.ppt
-*.docx
-*.doc
-*.pdf
-
-# === 大きな生成物 ===
-*.csv
-*.parquet
-*.pkl
-*.h5
-*.pt
-*.pth
-*.onnx
-*.zip
-*.tar.gz
-
-# ただし小さいサンプルデータや設定CSVは残す
-!ai-os/competitions/*/configs/*.csv
-
-# === 案件・実験の個人データ ===
-ai-os/work/clients/*/
-ai-os/work/nagoya-seika/
-ai-os/work/company/COMPANY.md
-ai-os/work/company/STRATEGY.md
-ai-os/work/company/SESSION_NOTES.md
-ai-os/work/company/daily_reports/
-ai-os/work/company/operations/
-ai-os/work/company/docs/
-ai-os/work/company/internal_docs/MOVIE/
-ai-os/work/company/weekly_reports/
-ai-os/work/company/meeting_notes/*.md
-ai-os/competitions/*/experiments/
-ai-os/competitions/*/.steering/
-ai-os/competitions/*/daily_reports/
-ai-os/competitions/*/weekly_reports/
-ai-os/competitions/*/SESSION_NOTES.md
-ai-os/SESSION_NOTES.md
-ai-os/DECISION_LOG.md
-ai-os/daily_reports/
-ai-os/weekly_reports/
-ai-os/decisions/
-
-# === 大学課題（個人情報含む） ===
-ai-os/study/
-
-# === Claude ローカル設定 ===
+.ente/
 .claude/settings.local.json
 
-# === 個人レポート・ログ（内容が入る前に保護） ===
-ai-os/meeting_notes/
+# === Private Data & Work ===
+ai-os/work/
+ai-os/competitions/
+ai-os/obsidian-vault/
+ai-os/study/
+ai-os/daily_reports/
+ai-os/weekly_reports/
 ai-os/monthly_reports/
-ai-os/eda_analysis.R
+ai-os/meeting_notes/
+ai-os/decisions/
+ai-os/SESSION_NOTES.md
+ai-os/DECISION_LOG.md
+ai-os/shared/personal_finance_2026.md
 
-# === node ===
+# Personal life / PII (never commit — birthdate, address, accounts, tax IDs)
+life/
+
+# Keep structure only
+!ai-os/work/README.md
+!ai-os/competitions/README.md
+!ai-os/work/company/CLAUDE.md
+!ai-os/competitions/CLAUDE.md
+
+# === Documentation (Private) ===
+docs/
+
+# === Databases & Logs ===
+*.db
+*.sqlite
+*.log
+backend_*.log
+ai-os/shared/logs/
+ai-delegate/logs/
+ai-delegate/output/
+
+# === Python / Node / IDE / Cache ===
+__pycache__/
+*.pyc
+.venv/
+venv/
 node_modules/
+.vscode/
+.DS_Store
+Thumbs.db
+*.egg-info/
+dist/
+build/
 package-lock.json
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+**/.mypy_cache/
+**/.pytest_cache/
+**/.ruff_cache/
+
+# === Local-only Scripts & Keys ===
+save_*_key.py
+save_key.py
+update_master_key.py
+*.bat
+create_*.ps1
+recreate_*.ps1
+install_*.ps1
+restore_*.ps1
+bin/rtk.exe
+.gitnexus
+undefined/
+.ai-delegate/
+.opencode/
+# Root-level scratch test scripts only (committed tests live in tests/)
+/test_*.py
+direct_test.py
+extended_test.py
+execute_first_command.py
+send_task.py
+finalize_rebrand.py
+recursive_evolution.py
+list_models.py
+start.ps1
+
+# === External & Artifacts ===
+external_resources/
+harness-test/
+test-project/
+ai-os/bin/clone_resources.py
+ai-os/bin/ingest_mit_books.py
+ai-os/bin/sync_to_obsidian.py
+backend/tests/
+src/generated/tests/
+
+# Sensitive / local working notes (public remotes — never commit)
+/TRACK_STRATEGY.md
+/SESSION_NOTES.md
+*.db-wal
+*.db-shm
+
+# Local scratch / one-off scripts (not part of workspace structure)
+/extract_pdf.py
+/score_analysis.py
+enable_*.ps1
+
+# === Local / client / class directories excluded from cross-PC workflow upload ===
+.tmp_github/
+_mtj_delivery_review/
+mtj_zip_review_20260616_second/
+mtj_zip_review_20260616_traffic_poc/
+avilen-prep/
+kaggle-discussion-setting-template-main/
+tutorial-challenge-4959/
+tutorial-challenge-651/
+

@@ -1,0 +1,68 @@
+name: Claude Requirement Walkthrough
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  walkthrough:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'oishizawads' &&
+      github.event.label.name == 'status:requirement'
+    timeout-minutes: 15
+    concurrency:
+      group: claude-requirement-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Load requirement prompt
+        id: prompt
+        run: |
+          PROMPT=$(cat .github/harness-prompts/01-requirement.md 2>/dev/null || echo "")
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$PROMPT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Run Claude Requirement Walkthrough
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            あなたは PM (Claude) です。
+            Issue #${{ github.event.issue.number }} の要件定義を行ってください。
+
+            ## Issue 情報
+            タイトル: ${{ github.event.issue.title }}
+            本文:
+            ${{ github.event.issue.body }}
+
+            ## タスク
+            Issue #${{ github.event.issue.number }} の要件確認コメントを作成し、
+            Bashツールで以下のコマンドを実行してIssueに投稿してください:
+
+            gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "（生成したコメント本文）"
+
+            ## コメントの形式
+
+            ## 要件確認
+
+            ### 確認事項
+            - [ ] （不明点を箇条書き）
+
+            ### 現時点の理解
+            （Issueの内容を自分の言葉でまとめる）
+
+            ### リスク・懸念点
+            （技術的リスク、スコープ外になりそうな箇所など）
+
+            ---
+            *このコメントは `status:requirement` ラベル付与により自動生成されました。確認事項に回答後、要件が確定したら「要件確定」とコメントしてください。*
+
+            ## 参考プロンプト
+            ${{ steps.prompt.outputs.content }}

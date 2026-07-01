@@ -8,6 +8,13 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
+# Windows の cp932 コンソールでも UTF-8 出力で化けない/落ちないようにする
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 
 WORKSPACE = Path("C:/workspace/ai-os")
 

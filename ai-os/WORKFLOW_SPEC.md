@@ -194,3 +194,23 @@ source: ""
 4. 出力形式を固定する
 5. eval を運用中核にする
 6. 失敗ログを資産に変える
+
+## 11. AI 活用ベストプラクティス（2026年版追加）
+
+### セキュリティ
+- `knowledge/frameworks/ai_security_guardrails.md` — ガードレール設計
+- `knowledge/failure_patterns/ai_security_incidents.md` — インシデントパターン
+- `knowledge/playbooks/ai_security_review.md` — レビュー手順
+
+### マルチエージェント
+- `knowledge/frameworks/multi_agent_coordination.md` — 協調パターン
+- `knowledge/frameworks/ankh_swarm_protocol.md` — 既存スウォームプロトコル
+
+### バージョン管理
+- `knowledge/frameworks/ai_output_versioning.md` — 出力追跡・回帰テスト
+- `evals/regression_cases/` — 回帰テストケース
+
+### コスト最適化
+- `knowledge/frameworks/cost_optimization_patterns.md` — コスト最適化
+- `shared/standards/rtk_guidelines.md` — RTK 活用
+- `knowledge/frameworks/model_routing.md` — モデルルーティング

@@ -10,6 +10,13 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+# Windows の cp932 コンソールでも UTF-8 出力で落ちないようにする（— や日本語対策）
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 WORKSPACE = Path(__file__).resolve().parents[2]
 SEP = "=" * 62
 
@@ -43,18 +50,6 @@ def latest_steering(project_dir: Path) -> str:
     return f"[{f.name}]\n" + read_head(f, max_lines=20)
 
 
-def latest_ledger(project_dir: Path, n: int = 8) -> str:
-    ledger = project_dir / "experiment_ledger.csv"
-    if not ledger.exists():
-        return "(no experiment_ledger.csv)"
-    lines = ledger.read_text(encoding="utf-8", errors="ignore").splitlines()
-    if len(lines) <= 1:
-        return "(ledger is empty)"
-    header = lines[0]
-    rows = lines[1:][-n:]
-    return header + "\n" + "\n".join(rows)
-
-
 def decision_log_tail(project_dir: Path) -> str:
     log = project_dir / "DECISION_LOG.md"
     return read_tail(log, max_lines=20)
@@ -75,7 +70,8 @@ def main():
 
     print(section("SESSION_NOTES.md (tail)", read_tail(project_dir / "SESSION_NOTES.md")))
     print(section(".steering/ (latest)", latest_steering(project_dir)))
-    print(section("experiment_ledger.csv (last 8)", latest_ledger(project_dir)))
+    # 実験管理は WandB 一本化済み（CSV台帳は廃止）。result.md は意図・採用判断・次仮説のみ。
+    print(section("実験管理", "メトリクスは WandB を参照。result.md には意図/採用判断/次仮説を記録。"))
     print(section("DECISION_LOG.md (tail)", decision_log_tail(project_dir)))
 
     print(f"{SEP}")

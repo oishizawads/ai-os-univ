@@ -4,6 +4,13 @@ import json
 import sys
 import re
 
+# Windows の cp932 コンソールでも UTF-8 出力で化けない/落ちないようにする
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 DANGEROUS_PATTERNS = [
     (r"(?<!['\"])\brm\s+-[rf]{1,2}f?\b", "rm -rf は破壊的です。本当に必要か確認してください"),
     (r"git\s+reset\s+--hard", "git reset --hard はコミットされていない変更を失います"),

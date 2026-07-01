@@ -1,31 +1,27 @@
 ---
 name: survey-papers
-description: 論文、過去解法、関連手法を調査して実務に落とす
+description: 論文や既知解法を調査し、今のプロジェクトで使える形に要約する。
 ---
 
 # Survey Papers
 
-## Purpose
-テーマに関する論文、解法、定石を調査し、このプロジェクトで使える形に整理する。
+## Mission
+関連研究や既知解法を、いま試す価値のある候補に圧縮する。
 
-## Subagent Orchestration
-スキル起動直後に以下を**同時に**起動する。
+## Workflow
+1. タスク、評価指標、制約を確認する。
+2. 強い既知手法を 3 から 5 件までに絞る。
+3. 各手法について `what / why here / risk / try now or later` を整理する。
+4. 必要なら `researcher` に補助調査を依頼する。
+5. Kaggle 文脈が重要なら `kaggle-researcher` を追加で使う。
+6. 今回やる候補と見送る候補を分ける。
 
-**researcher** に渡すプロンプト:
-```
-[ユーザーのテーマ] について、論文・技術ブログ・公式ドキュメントを調査してください。
-出力: Strong known approaches / Why they matter / Risks / Try now / Try later
-```
+## Guardrails
+- 論文要約で終わらせず、この案件での意味に落とす。
+- 実装コストと validation 影響を無視しない。
+- try now は少数に絞る。
 
-コンペ文脈の場合は追加で **kaggle-researcher** も起動:
-```
-[コンペ名 or タスク種別] の Kaggle discussion / notebook / 上位解法を調査してください。
-CV設計・特徴量・アンサンブル戦略に絞って整理してください。
-```
-
-両エージェント完了後、結果を統合して Output Format に従い最終サマリを出力する。
-
-## Output Format
+## Output
 - 3-line summary
 - Strong known approaches
 - Why they matter here

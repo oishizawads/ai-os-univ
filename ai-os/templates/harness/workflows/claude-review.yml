@@ -1,0 +1,92 @@
+name: Claude Review
+
+on:
+  issues:
+    types: [labeled]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'oishizawads' &&
+      github.event.label.name == 'status:review'
+    timeout-minutes: 15
+    concurrency:
+      group: claude-review-${{ github.event.issue.number }}
+      cancel-in-progress: false
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find associated PR
+        id: find-pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ISSUE_NUM=${{ github.event.issue.number }}
+          PR_NUMBER=$(gh pr list --repo ${{ github.repository }} --state open --json number,body \
+            --jq ".[] | select(.body | contains(\"#${ISSUE_NUM}\")) | .number" | head -1)
+          if [ -z "$PR_NUMBER" ]; then
+            PR_NUMBER=$(gh pr list --repo ${{ github.repository }} --state open --json number,title \
+              --jq ".[] | select(.title | contains(\"#${ISSUE_NUM}\")) | .number" | head -1)
+          fi
+          echo "pr_number=${PR_NUMBER:-}" >> $GITHUB_OUTPUT
+
+      - name: Load review prompt
+        id: prompt
+        run: |
+          PROMPT=$(cat .github/harness-prompts/04-review.md 2>/dev/null || echo "")
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$PROMPT" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Run Claude Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            あなたは PM (Claude) です。
+            Issue #${{ github.event.issue.number }} に関連するPRのコードレビューを行ってください。
+
+            ## Issue 情報
+            タイトル: ${{ github.event.issue.title }}
+            本文:
+            ${{ github.event.issue.body }}
+
+            ## 関連PR
+            PR番号: ${{ steps.find-pr.outputs.pr_number || '（PRが見つかりませんでした。PRのタイトルまたは本文に Issue 番号を含めてください）' }}
+
+            ## タスク
+            PRのdiffを確認した上でレビューコメントを作成し、
+            Bashツールで以下のコマンドを実行してIssueに投稿してください:
+
+            gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body "（生成したコメント本文）"
+
+            ## コメントの形式
+
+            ## レビュー結果
+
+            ### 1. 仕様整合
+            （Issue の受け入れ条件との整合性）
+
+            ### 2. セキュリティ
+            （認証・認可・入力バリデーション・secrets露出）
+
+            ### 3. コード品質
+            （責務分離・複雑度・エラーハンドリング）
+
+            ### 4. テスト
+            （テスト観点の網羅・信頼性）
+
+            ### 総合判定
+            - ✅ Approve: 「マージOK」
+            - ⚠️ Comment: 軽微な指摘あり
+            - 🔄 Changes Requested: 修正後に再レビュー
+
+            ---
+            *このコメントは `status:review` ラベル付与により自動生成されました。*
+            *Approve の場合はこのコメントに「マージOK」と返信するとIssueがクローズされます。*

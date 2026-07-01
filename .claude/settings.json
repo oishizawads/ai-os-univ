@@ -5,11 +5,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"C:/workspace/ai-os/hooks/lib/rotate_daily_report.py\""
+            "command": "python3 \"/Users/ouga/workspace/ai-os/hooks/lib/rotate_daily_report.py\""
           },
           {
             "type": "command",
-            "command": "python \"C:/workspace/ai-os/hooks/lib/session_notes_sync.py\""
+            "command": "python3 \"/Users/ouga/workspace/ai-os/hooks/lib/session_notes_sync.py\""
           }
         ]
       }
@@ -20,7 +20,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"C:/workspace/ai-os/hooks/lib/guard_dangerous_commands.py\""
+            "command": "python3 \"/Users/ouga/workspace/ai-os/hooks/lib/guard_dangerous_commands.py\""
           }
         ]
       }
@@ -31,11 +31,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python \"C:/workspace/ai-os/hooks/lib/suggest_claude_md.py\""
-          },
-          {
-            "type": "command",
-            "command": "python \"C:/workspace/ai-os/hooks/lib/auto_ledger.py\""
+            "command": "python3 \"/Users/ouga/workspace/ai-os/hooks/lib/suggest_claude_md.py\""
           }
         ]
       }

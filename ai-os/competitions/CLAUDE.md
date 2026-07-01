@@ -5,6 +5,13 @@ MLコンペの管理ディレクトリ。
 
 ## Active
 - `near-infrared-challenge/` ← 木材NIRスペクトル→含水率予測
+- `atmaCup11/` ← 美術品画像→製作年代予測（RMSE）。独立gitリポジトリ
+- `ml-selection-assignment/` ← MLエンジニア選考課題シリーズ（`README.pdf`=仕様 / `01-nfl-draft-prediction` / `02-superstore-marketing`）
+
+## ディレクトリ規約
+- 1コンペ=1ディレクトリ。zip等の生DLは展開後に残さない（展開dirが正典）
+- ディレクトリ名は意味のあるスラッグにする（Google Drive由来の機械名は使わない）
+- `competitions/` は workspace の **gitignore対象**（履歴なし）。削除は不可逆＝消す前に確認
 
 ## 共通原則
 - CVが不安定な案は本命にしない

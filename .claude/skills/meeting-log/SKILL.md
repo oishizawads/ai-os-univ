@@ -1,46 +1,30 @@
-# Skill: meeting-log
+---
+name: meeting-log
+description: 会議メモを要約し、保存と SESSION_NOTES 反映まで進める。
+---
 
-## Purpose
-ミーティングをログとして残す一連のワークフロー。
-メモを渡すだけで、議事録作成・ファイル保存・SESSION_NOTES 更新まで行う。
+# Meeting Log
 
-## Trigger
-ユーザーが「ミーティングのメモ」「mtgログ」「議事録」と言ったとき。
-または `/log-meeting` コマンドが呼ばれたとき。
+## Mission
+会議メモを、決定事項と次アクションが追える形に整える。
 
-## Phases
+## Workflow
+1. 既存の `meeting_notes/` と `SESSION_NOTES.md` を必要範囲だけ確認する。
+2. Raw notes から `topic / date / participants / decisions / action items` を抜く。
+3. 必要なら `meeting-note-writer` に清書を依頼する。
+4. `meeting_notes/YYYY-MM-DD_<topic>.md` へ保存する。
+5. `SESSION_NOTES.md` に 1 行で反映する。
+6. Action items に担当と期限がない場合は、その不足を明記する。
 
-### Phase 0: コンテキスト確認
-1. 現在のプロジェクトを特定する（CWD または ユーザー発言から）
-2. `meeting_notes/` ディレクトリの存在を確認（なければ作成）
-3. ミーティングの日付とトピックをユーザーに確認（不明な場合のみ）
-
-### Phase 1: 議事録生成
-1. `meeting-note-writer` エージェントにメモを渡して構造化
-2. 出力を確認してユーザーに提示
-
-### Phase 2: ファイル保存
-1. ファイル名: `meeting_notes/YYYY-MM-DD_<topic>.md`
-   - topic はスペースをハイフンで置換、日本語可
-2. ファイルを作成
-
-### Phase 3: SESSION_NOTES.md 更新
-1. 該当プロジェクトの `SESSION_NOTES.md` 末尾に追記:
-   ```
-   - [YYYY-MM-DD] MTG: {topic} → {decisions_1line}
-   ```
-2. decisions_1line は「決定事項」のうち最重要1件を1行で
-
-### Phase 4: アクション確認
-1. Action Items の担当者を確認
-2. Codex に振れるものがあれば提案する
+## Guardrails
+- Raw notes を勝手に補完しすぎない。
+- 決定事項と議論中の論点を分ける。
+- Action items は担当、期限、内容を優先して残す。
+- topic は短く検索しやすい名前にする。
 
 ## Output
-- 保存したファイルパスを伝える
-- Action Items を番号付きリストで再掲する
-- 次のアクションを明示する
-
-## Hard Rules
-- Raw Notes は必ず残す（元メモを消さない）
-- Phase 0 のコンテキスト確認を省略しない
-- Action Items が空の場合は「アクションなし」と明示する
+- Saved note path
+- Decisions summary
+- Action items
+- SESSION_NOTES update line
+- Missing information

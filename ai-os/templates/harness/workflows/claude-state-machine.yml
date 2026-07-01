@@ -1,0 +1,127 @@
+name: Claude State Machine
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  to-design:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'oishizawads' &&
+      github.event.issue.pull_request == null &&
+      contains(github.event.comment.body, '要件確定')
+    permissions:
+      issues: write
+    steps:
+      - name: Transition to status:design
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ISSUE=${{ github.event.issue.number }}
+          REPO=${{ github.repository }}
+          for label in "status:requirement" "status:design" "status:ready" "status:implementing" "status:review" "status:merged" "status:blocked" "agent:claude" "agent:codex" "agent:human"; do
+            gh issue edit $ISSUE --remove-label "$label" --repo $REPO 2>/dev/null || true
+          done
+          gh issue edit $ISSUE --add-label "status:design,agent:claude" --repo $REPO
+
+  to-ready:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'oishizawads' &&
+      github.event.issue.pull_request == null &&
+      contains(github.event.comment.body, '設計確定')
+    permissions:
+      issues: write
+    steps:
+      - name: Transition to status:ready
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ISSUE=${{ github.event.issue.number }}
+          REPO=${{ github.repository }}
+          for label in "status:requirement" "status:design" "status:ready" "status:implementing" "status:review" "status:merged" "status:blocked" "agent:claude" "agent:codex" "agent:human"; do
+            gh issue edit $ISSUE --remove-label "$label" --repo $REPO 2>/dev/null || true
+          done
+          gh issue edit $ISSUE --add-label "status:ready,agent:codex" --repo $REPO
+
+  to-implementing:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'oishizawads' &&
+      github.event.issue.pull_request == null &&
+      contains(github.event.comment.body, '実装開始')
+    permissions:
+      issues: write
+    steps:
+      - name: Transition to status:implementing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ISSUE=${{ github.event.issue.number }}
+          REPO=${{ github.repository }}
+          for label in "status:requirement" "status:design" "status:ready" "status:implementing" "status:review" "status:merged" "status:blocked" "agent:claude" "agent:codex" "agent:human"; do
+            gh issue edit $ISSUE --remove-label "$label" --repo $REPO 2>/dev/null || true
+          done
+          gh issue edit $ISSUE --add-label "status:implementing,agent:codex" --repo $REPO
+
+  to-review:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'oishizawads' &&
+      github.event.issue.pull_request == null &&
+      contains(github.event.comment.body, 'レビュー依頼')
+    permissions:
+      issues: write
+    steps:
+      - name: Transition to status:review
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ISSUE=${{ github.event.issue.number }}
+          REPO=${{ github.repository }}
+          for label in "status:requirement" "status:design" "status:ready" "status:implementing" "status:review" "status:merged" "status:blocked" "agent:claude" "agent:codex" "agent:human"; do
+            gh issue edit $ISSUE --remove-label "$label" --repo $REPO 2>/dev/null || true
+          done
+          gh issue edit $ISSUE --add-label "status:review,agent:claude" --repo $REPO
+
+  to-merged:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'oishizawads' &&
+      github.event.issue.pull_request == null &&
+      contains(github.event.comment.body, 'マージOK')
+    permissions:
+      issues: write
+    steps:
+      - name: Transition to status:merged
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ISSUE=${{ github.event.issue.number }}
+          REPO=${{ github.repository }}
+          for label in "status:requirement" "status:design" "status:ready" "status:implementing" "status:review" "status:merged" "status:blocked" "agent:claude" "agent:codex" "agent:human"; do
+            gh issue edit $ISSUE --remove-label "$label" --repo $REPO 2>/dev/null || true
+          done
+          gh issue edit $ISSUE --add-label "status:merged" --repo $REPO
+          gh issue close $ISSUE --repo $REPO
+
+  to-blocked:
+    runs-on: ubuntu-latest
+    if: |
+      github.actor == 'oishizawads' &&
+      github.event.issue.pull_request == null &&
+      contains(github.event.comment.body, 'ブロック')
+    permissions:
+      issues: write
+    steps:
+      - name: Transition to status:blocked
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          ISSUE=${{ github.event.issue.number }}
+          REPO=${{ github.repository }}
+          for label in "status:requirement" "status:design" "status:ready" "status:implementing" "status:review" "status:merged" "status:blocked" "agent:claude" "agent:codex" "agent:human"; do
+            gh issue edit $ISSUE --remove-label "$label" --repo $REPO 2>/dev/null || true
+          done
+          gh issue edit $ISSUE --add-label "status:blocked,agent:human" --repo $REPO

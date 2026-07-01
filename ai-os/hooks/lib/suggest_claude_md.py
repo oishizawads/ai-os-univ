@@ -4,6 +4,13 @@ import json
 import sys
 from pathlib import Path
 
+# Windows の cp932 コンソールでも UTF-8 出力で化けない/落ちないようにする
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 
 def normalize_path(raw: str) -> Path:
     if not raw:

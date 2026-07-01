@@ -21,7 +21,7 @@
 #### 1. リポジトリを clone する
 
 ```bash
-git clone https://github.com/oishizawads/-workspace-template-ai-os-.git workspace
+git clone https://github.com/oishizawads/ai-os-univ.git workspace
 cd workspace
 ```
 
